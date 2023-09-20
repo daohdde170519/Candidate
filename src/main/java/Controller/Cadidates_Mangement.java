@@ -33,7 +33,8 @@ public class Cadidates_Mangement extends Menu<String>{
             case 1 -> createCandidate(candidates,0);
             case 2 -> createCandidate(candidates,1);
             case 3 -> createCandidate(candidates,2);
-            case 4 -> exit(0);
+            case 4 -> searchCandidate(candidates);
+            case 5 -> exit(0);
              default -> System.out.println("Try again");
             }
     }
@@ -126,6 +127,47 @@ public class Cadidates_Mangement extends Menu<String>{
                 candidate.getPhone(), candidate.getEmail(),
                 candidate.getTypeCandidate(), major, semester, university ));
         System.err.println("Create success.");
+    }
+    
+        //allow user search candidate by name
+    public void searchCandidate(ArrayList<Candidates> candidates) {
+        printListNameCandidate(candidates);
+        System.out.print("Enter andidate name (First name or Last name): ");
+        String nameSearch = check.checkInputString();
+        System.out.print("Enter type of candidate: ");
+        int typeCandidate = check.checkInputIntLimit(0, 2);
+        for (Candidates candidate : candidates) {
+            if (candidate.getTypeCandidate() == typeCandidate
+                    && candidate.getFirstName().contains(nameSearch)
+                    || candidate.getLastName().contains(nameSearch)) {
+                System.out.println(candidate.toString());
+            }
+        }
+    }
+
+    //display list name candidate
+    public void printListNameCandidate(ArrayList<Candidates> candidates) {
+        System.err.println("Experience Candidate");
+        for (Candidates candidate : candidates) {
+            if (candidate instanceof Experience) {
+                System.out.println(candidate.getFirstName() + " "
+                        + candidate.getLastName());
+            }
+        }
+        System.err.println("Fresher Candidate");
+        for (Candidates candidate : candidates) {
+            if (candidate instanceof Fresher) {
+                System.out.println(candidate.getFirstName() + " "
+                        + candidate.getLastName());
+            }
+        }
+        System.err.println("Internship Candidate");
+        for (Candidates candidate : candidates) {
+            if (candidate instanceof Intern) {
+                System.out.println(candidate.getFirstName() + " "
+                        + candidate.getLastName());
+            }
+        }
     }
    }
 
